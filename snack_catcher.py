@@ -13,6 +13,7 @@ class App:
         self.score = 0
         self.carrots = []
         self.bombs = []
+        self.clocks = []
         self.time_left = 30
         self.game_over = False
 
@@ -63,27 +64,34 @@ class App:
                 self.game_over = True
 
     def draw(self):
-        pyxel.cls(12) # Light blue background
+        # Draw background
+        pyxel.cls(12)  # Sky
+        # Big Tree
+        # Canopy covering the top
+        pyxel.rect(0, 0, 160, 40, 3)
+        # Wide trunk
+        pyxel.rect(30, 40, 100, 80, 4)
 
         # Draw player (bear from Image 0)
         # blt(x, y, img, u, v, w, h, [colkey])
         # Using color 13 (magenta) as the transparent color.
         pyxel.blt(self.player_x, self.player_y, 0, 0, 0, 16, 16, 13)
 
-        # Draw carrots (from Image 1)
+        # Draw carrots (Green Squares)
         for carrot in self.carrots:
-            pyxel.blt(carrot[0], carrot[1], 1, 0, 0, 8, 8, 13)
+            pyxel.rect(carrot[0], carrot[1], 8, 8, 11) # Green
 
-        # Draw bombs (from Image 2)
+        # Draw bombs (Red Squares)
         for bomb in self.bombs:
-            pyxel.blt(bomb[0], bomb[1], 2, 0, 0, 8, 8, 13)
+            pyxel.rect(bomb[0], bomb[1], 8, 8, 8) # Red
 
         # Draw UI
         pyxel.text(5, 5, f"Score: {self.score}", 7)
         pyxel.text(5, 15, f"Time: {self.time_left}", 7)
 
         if self.game_over:
-            pyxel.text(60, 50, "Game Over", 0)
-            pyxel.text(45, 60, "Press Enter", 0)
+            pyxel.text(55, 50, "Time's Up!", 0)
+            pyxel.text(50, 60, f"Final Score: {self.score}", 0)
+            pyxel.text(35, 70, "Press Enter to Restart", 0)
 
 App()
